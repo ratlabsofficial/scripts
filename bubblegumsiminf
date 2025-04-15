@@ -1,0 +1,120 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "friggin packet yo hub",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "made by rat labs",
+   LoadingSubtitle = "for bubble gum sim inf",
+   Theme = "Amber", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "sexgayhub"
+   },
+
+   Discord = {
+      Enabled = true, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "nahS6hnHrG", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = false -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"kill yourself"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+local Tab = Window:CreateTab("auto farm", 4483362458) -- Title, Image
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+
+local event = ReplicatedStorage:WaitForChild("Shared")
+    :WaitForChild("Framework")
+    :WaitForChild("Network")
+    :WaitForChild("Remote")
+    :WaitForChild("Event")
+
+local blowing = false
+local connection
+
+local Toggle = Tab:CreateToggle({
+    Name = "auto farm",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        blowing = Value
+
+        if blowing then
+            local sellCooldown = 1
+            local blowCooldown = 0.5
+            local lastSell = 0
+            local lastBlow = 0
+
+            connection = RunService.Heartbeat:Connect(function()
+                local now = tick()
+
+                if now - lastBlow >= blowCooldown then
+                    event:FireServer("BlowBubble")
+                    lastBlow = now
+                end
+
+                if now - lastSell >= sellCooldown then
+                    event:FireServer("SellBubble")
+                    lastSell = now
+                end
+            end)
+        else
+            if connection then
+                connection:Disconnect()
+                connection = nil
+            end
+        end
+    end,
+})
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+
+local event = ReplicatedStorage:WaitForChild("Shared")
+    :WaitForChild("Framework")
+    :WaitForChild("Network")
+    :WaitForChild("Remote")
+    :WaitForChild("Event")
+
+local autoBlowConnection
+
+local BlowToggle = Tab:CreateToggle({
+    Name = "auto blow 😳",
+    CurrentValue = false,
+    Flag = "AutoBlowToggle",
+    Callback = function(enabled)
+        if enabled then
+            local blowCooldown = 0.5
+            local lastBlow = 0
+
+            autoBlowConnection = RunService.Heartbeat:Connect(function()
+                local now = tick()
+                if now - lastBlow >= blowCooldown then
+                    event:FireServer("BlowBubble")
+                    lastBlow = now
+                end
+            end)
+        else
+            if autoBlowConnection then
+                autoBlowConnection:Disconnect()
+                autoBlowConnection = nil
+            end
+        end
+    end,
+})
+
