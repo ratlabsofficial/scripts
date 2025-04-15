@@ -1,10 +1,4 @@
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
---[[
-    Role ESP dengan Ikon & Outline Fix + Tracers
-    Support XENO Executor
-]]
+--green fn
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -41,7 +35,7 @@ local function createESP(player, role)
     local char = player.Character
     if not char or not char:FindFirstChild("Head") then return end
 
-    -- Ikon
+    -- uhhhhhhhh
     local head = char.Head
     if not head:FindFirstChild("RoleESPIcon") then
         local gui = Instance.new("BillboardGui")
